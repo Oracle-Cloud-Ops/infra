@@ -1,20 +1,30 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: app-network-lb
+  name: ingress-nginx-nlb
+  namespace: ingress-nginx # Ensure this matches your ingress namespace
   annotations:
     oci.oraclecloud.com/load-balancer-type: "nlb"
-    service.beta.kubernetes.io/oci-load-balancer-internal: "false"
+    
+    # Automatically opens the necessary Security List rules in your VCN
+    oci.oraclecloud.com/security-rule-management-mode: "SL-All"
+    
+    oci-network-load-balancer.oraclecloud.com/is-preserve-source: "true"
+    
+    # If you have a Reserved Public IP in OCI, put its OCID here to keep it static
+    # oci.oraclecloud.com/reserved-ips: "ocid1.publicip.oc1.iad.aaaaaaa..."
 spec:
   type: LoadBalancer
   selector:
-    app: my-app # This must match the labels in your deployment
+    # This must match the labels on your Nginx/Caddy pods
+    app.kubernetes.io/name: ingress-nginx
+    app.kubernetes.io/component: controller
   ports:
     - name: http
-      protocol: TCP
       port: 80
-      targetPort: 8080 # The port your app listens on for HTTP
-    - name: https
+      targetPort: 80
       protocol: TCP
+    - name: https
       port: 443
-      targetPort: 8443 # The port your app listens on for HTTPS/TLS
+      targetPort: 443
+      protocol: TCP
