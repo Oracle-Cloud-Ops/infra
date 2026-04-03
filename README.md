@@ -5,7 +5,7 @@ This repository manages the "Always Free" OCI Stack. It is the single source of 
 ## 🚀 Quick Access
 - **Terraform:** Managed in `/terraform` (Target: eu-frankfurt-1)
 - **K8s Services:** Managed in `/k8s-manifests/system`
-- **Docs:** [Upgrade SOP](./docs/UPGRADE_SOP.md) | [Postgres Ops](./docs/POSTGRES_OPS.md)
+- **Docs:** [Upgrade SOP](./docs/UPGRADE_SOP.md) | [Postgres Ops](./docs/POSTGRES_OPS.md) | [SECRETS SOP](./docs/SECRETS_SOP.md)
 
 ## 🛠 Usage
 ### 1. Update Hardware
