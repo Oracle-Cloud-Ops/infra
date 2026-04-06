@@ -4,10 +4,7 @@ metadata:
   name: ingress-nginx-nlb
   namespace: ingress-nginx
   annotations:
-    # Basic NLB setup
     oci.oraclecloud.com/load-balancer-type: "nlb"
-    ci.oraclecloud.com/load-balancer-subnet-id: ""
-    oci-network-load-balancer.oraclecloud.com/subnet: ""
     oci.oraclecloud.com/security-rule-management-mode: "SL-All"
     oci-network-load-balancer.oraclecloud.com/is-preserve-source: "true"
 spec:
