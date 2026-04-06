@@ -9,3 +9,4 @@ variable "node_kubernetes_version" { default = "v1.34.2" }
 variable "node_image_id" {}
 variable "availability_domain" {}
 variable "ssh_public_key" {}
+variable "nlb_subnet_id" {}

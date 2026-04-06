@@ -13,6 +13,7 @@ resource "oci_containerengine_cluster" "generated_oci_containerengine_cluster" {
 	kubernetes_version = var.kubernetes_version
 	name = "prod_arm_pool"
 	options {
+        service_lb_subnet_ids = [var.nlb_subnet_id]
 		kubernetes_network_config {
 			services_cidr = "10.96.0.0/16"
 		}

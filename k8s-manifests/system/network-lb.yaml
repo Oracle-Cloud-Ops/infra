@@ -2,23 +2,18 @@ apiVersion: v1
 kind: Service
 metadata:
   name: ingress-nginx-nlb
-  namespace: ingress-nginx # Ensure this matches your ingress namespace
+  namespace: ingress-nginx
   annotations:
+    # Basic NLB setup
     oci.oraclecloud.com/load-balancer-type: "nlb"
-    
-    # Automatically opens the necessary Security List rules in your VCN
+    ci.oraclecloud.com/load-balancer-subnet-id: ""
+    oci-network-load-balancer.oraclecloud.com/subnet: ""
     oci.oraclecloud.com/security-rule-management-mode: "SL-All"
-    
     oci-network-load-balancer.oraclecloud.com/is-preserve-source: "true"
-
-    oci-network-load-balancer.oraclecloud.com/subnet-id: "ocid1.subnet.oc1.eu-frankfurt-1.aaaaaaaa..."
-    
-    # If you have a Reserved Public IP in OCI, put its OCID here to keep it static
-    # oci.oraclecloud.com/reserved-ips: "ocid1.publicip.oc1.iad.aaaaaaa..."
 spec:
   type: LoadBalancer
+  externalTrafficPolicy: Local
   selector:
-    # This must match the labels on your Nginx/Caddy pods
     app.kubernetes.io/name: ingress-nginx
     app.kubernetes.io/component: controller
   ports:
